@@ -1,0 +1,11 @@
+﻿# Ignore all files in the bin directory
+game-archive-manager/bin/
+
+# Ignore all files in the obj directory
+game-archive-manager/obj/
+
+# Ignore all files in the packages directory
+AppPackages/
+
+# Ignore all files in the .vs directory
+.vs/

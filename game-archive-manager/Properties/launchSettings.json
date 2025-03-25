@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "game-archive-manager (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "game-archive-manager (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
