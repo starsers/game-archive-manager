@@ -26,6 +26,7 @@ namespace game_archive_manager
         public MainWindow()
         {
             this.InitializeComponent();
+            ExampleApp.SignInContentDialog signInContentDialog = new ExampleApp.SignInContentDialog();
         }
 
 
