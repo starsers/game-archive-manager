@@ -11,6 +11,16 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+
+            <!-- Define the missing style here -->
+            <Style x:Key="ControlContextualInfoTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Red"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            <Style x:Key="MessageDialogContentStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Blue"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
