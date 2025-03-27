@@ -13,8 +13,12 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
+using Microsoft.UI.Windowing;
+
 using ExampleApp;
 using System.Threading;
+using Windows.UI.WindowManagement;
+using WinRT.Interop;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -31,6 +35,7 @@ namespace game_archive_manager
             //ShowSignInDialog();  
             //ShowSignInDialogButton_Click(loginButton, new RoutedEventArgs());
             //myButton_Click(myButton, new RoutedEventArgs());
+
         }
 
         private async void ShowSignInDialogButton_Click(object sender, RoutedEventArgs e) // Changed from private to public  
@@ -50,6 +55,21 @@ namespace game_archive_manager
             else if (signInDialog.Result == SignInResult.SignInCancel)
             {
                 // Sign in was cancelled by the user.  
+            }
+        }
+        private async void MainWindow_Closing(object sender, AppWindowClosingEventArgs e)
+        {
+            ContentDialog contentDialog = new ContentDialog();
+            contentDialog.Content = "Close it?";
+            contentDialog.XamlRoot = this.Content.XamlRoot;
+            contentDialog.PrimaryButtonText = "Yes";
+            contentDialog.CloseButtonText = "No";
+            contentDialog.IsPrimaryButtonEnabled = true;
+            var r = await contentDialog.ShowAsync();
+            if (r == ContentDialogResult.Primary)
+            {
+                // Cancel the close event 
+                e.Cancel=true;
             }
         }
 
