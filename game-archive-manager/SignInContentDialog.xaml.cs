@@ -108,7 +108,11 @@ namespace ExampleApp
                 }
             }
         }
+<<<<<<< HEAD
        
+=======
+
+>>>>>>> 2f3318984c733f47aa2be5575ac34b109e00ceaa
         private void SaveUserName()
         {
             Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
