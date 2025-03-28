@@ -32,31 +32,12 @@ namespace game_archive_manager
         public MainWindow()
         {
             this.InitializeComponent();
-            //ShowSignInDialog();  
-            //ShowSignInDialogButton_Click(loginButton, new RoutedEventArgs());
-            //myButton_Click(myButton, new RoutedEventArgs());
-
+            MainFrame = new Frame(); // Initialize MainFrame
+            this.Content = MainFrame; // Set MainFrame as the content of the window
+            MainFrame.Navigate(typeof(HomePage));
         }
 
-        private async void ShowSignInDialogButton_Click(object sender, RoutedEventArgs e) // Changed from private to public  
-        {
-            SignInContentDialog signInDialog = new SignInContentDialog();
-            signInDialog.XamlRoot = this.Content.XamlRoot; // 能解决报错，不知道什么原理  
-            await signInDialog.ShowAsync();
-
-            if (signInDialog.Result == SignInResult.SignInOK)
-            {
-                // Sign in was successful.  
-            }
-            else if (signInDialog.Result == SignInResult.SignInFail)
-            {
-                // Sign in failed.  
-            }
-            else if (signInDialog.Result == SignInResult.SignInCancel)
-            {
-                // Sign in was cancelled by the user.  
-            }
-        }
+      
         private async void MainWindow_Closing(object sender, AppWindowClosingEventArgs e)
         {
             ContentDialog contentDialog = new ContentDialog();
@@ -68,11 +49,10 @@ namespace game_archive_manager
             var r = await contentDialog.ShowAsync();
             if (r == ContentDialogResult.Primary)
             {
-                // Cancel the close event 
-                e.Cancel=true;
+                // Cancel the close event
+                e.Cancel = true;
             }
         }
-
 
         private void myButton_Click(object sender, RoutedEventArgs e)
         {

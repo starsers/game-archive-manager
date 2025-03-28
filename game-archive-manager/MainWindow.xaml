@@ -8,10 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="game-archive-manager">
-
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Slider x:Name="simpleSlider" AutomationProperties.Name="simple slider" Width="200"/>
-        <Button x:Name="loginButton" Content="Open Sign In Dialog" Click="ShowSignInDialogButton_Click"></Button>
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <Grid>
+        <Frame x:Name="MainFrame" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Slider x:Name="simpleSlider" AutomationProperties.Name="simple slider" Width="200"/>
+            <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+        </StackPanel>
+    </Grid>
 </Window>

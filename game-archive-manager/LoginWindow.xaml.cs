@@ -42,6 +42,9 @@ namespace game_archive_manager
             //Owner = this;
             //SetTopmost();
             //this.Activate(); // ¼¤»î´°¿Ú
+            MainFrame= new Frame();
+            this.Content = MainFrame;
+            MainFrame.Navigate(typeof(LoginPage));
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
