@@ -11,6 +11,16 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+            
+            <!--<ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="ApplicationPageBackgroundThemeBrush">Black</Color>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="ApplicationPageBackgroundThemeBrush">White</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>-->
+
 
             <!-- Define the missing style here -->
             <Style x:Key="ControlContextualInfoTextBlockStyle" TargetType="TextBlock">

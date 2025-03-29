@@ -50,5 +50,9 @@ namespace game_archive_manager
         }
 
         private Window? m_window;
+        public Window GetWindow()
+        {
+            return m_window ?? throw new InvalidOperationException("Window has not been initialized.");
+        }
     }
 }

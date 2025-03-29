@@ -13,9 +13,16 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
+using Microsoft.UI.Xaml.Media.Imaging;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 
 using Microsoft.UI.Xaml.Media.Animation;
 using ExampleApp;
+
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -27,17 +34,25 @@ namespace game_archive_manager
     /// </summary>
     public sealed partial class HomePage : Page
     {
+        //public ObservableCollection<ControlInfoDataItem> Items { get; set; }
+
         public HomePage()
         {
             this.InitializeComponent();
+            //ObservableCollection<ControlInfoDataItem> controlInfoDataItems = new ObservableCollection<ControlInfoDataItem>
+            //{
+            //    new ControlInfoDataItem { Title = "Item 1", ImagePath = "/Assets/pic/pic1.png" },
+            //    new ControlInfoDataItem { Title = "Item 2", ImagePath = "/Assets/pic/pic2.png" },
+            //    new ControlInfoDataItem { Title = "Item 3", ImagePath = "/Assets/pic/pic3.jpg" }
+            //};
+            //Items = controlInfoDataItems;
+            //this.DataContext = this;
         }
-        
-
-
         private void NavigateToSettingsPage(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
         }
+
         private async void ShowSignInDialogButton_Click(object sender, RoutedEventArgs e)
         {
             SignInContentDialog signInDialog = new SignInContentDialog();
@@ -57,6 +72,7 @@ namespace game_archive_manager
                 // Sign in was cancelled by the user.
             }
         }
+
 
     }
 }

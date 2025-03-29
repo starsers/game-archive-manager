@@ -34,7 +34,7 @@ namespace game_archive_manager
         private const uint TOPMOST_FLAGS = SWP_NOMOVE | SWP_NOSIZE;
 
         public Window? Owner; // Make Owner nullable
-        private double Left, Top;
+        //private double Left, Top;
 
         public LoginWindow()
         {

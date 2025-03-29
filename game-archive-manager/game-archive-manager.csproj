@@ -12,10 +12,7 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="HomePage.xaml" />
-    <None Remove="SettingsPage.xaml" />
-  </ItemGroup>
+	
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -89,4 +86,41 @@
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
+  <ItemGroup>
+    <PRIResource Remove="Assets\pic\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Controls\ContentShow.xaml" />
+    <None Remove="Controls\GameArchiveShow.xaml" />
+    <None Remove="Controls\ImageUploader.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+	<Folder Include="Pages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\pic\pic1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\pic\pic2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\pic\pic3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\GameArchiveShow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\ContentShow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\ImageUploader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>
