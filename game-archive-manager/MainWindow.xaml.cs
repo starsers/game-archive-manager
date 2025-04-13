@@ -38,21 +38,21 @@ namespace game_archive_manager
         }
 
       
-        private async void MainWindow_Closing(object sender, AppWindowClosingEventArgs e)
-        {
-            ContentDialog contentDialog = new ContentDialog();
-            contentDialog.Content = "Close it?";
-            contentDialog.XamlRoot = this.Content.XamlRoot;
-            contentDialog.PrimaryButtonText = "Yes";
-            contentDialog.CloseButtonText = "No";
-            contentDialog.IsPrimaryButtonEnabled = true;
-            var r = await contentDialog.ShowAsync();
-            if (r == ContentDialogResult.Primary)
-            {
-                // Cancel the close event
-                e.Cancel = true;
-            }
-        }
+        //private async void MainWindow_Closing(object sender, AppWindowClosingEventArgs e)
+        //{
+        //    ContentDialog contentDialog = new ContentDialog();
+        //    contentDialog.Content = "Close it?";
+        //    contentDialog.XamlRoot = this.Content.XamlRoot;
+        //    contentDialog.PrimaryButtonText = "Yes";
+        //    contentDialog.CloseButtonText = "No";
+        //    contentDialog.IsPrimaryButtonEnabled = true;
+        //    var r = await contentDialog.ShowAsync();
+        //    if (r == ContentDialogResult.Primary)
+        //    {
+        //        // Cancel the close event
+        //        e.Cancel = true;
+        //    }
+        //}
 
         private void myButton_Click(object sender, RoutedEventArgs e)
         {

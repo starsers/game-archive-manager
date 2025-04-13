@@ -17,7 +17,7 @@
 
     <ContentDialog.Resources>
         <!-- Uncomment this Style if using WinUI 2.2 or later. -->
-        <!-- <Style TargetType="local:SignInContentDialog" BasedOn="{StaticResource DefaultContentDialogStyle}"/> -->
+         <Style TargetType="local:SignInContentDialog" BasedOn="{StaticResource DefaultContentDialogStyle}"/> 
 
         <!-- These flyouts or used for confirmation when the user changes
          the option to save their user name. -->

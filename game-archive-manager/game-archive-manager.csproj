@@ -90,6 +90,7 @@
     <PRIResource Remove="Assets\pic\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ContentDialogs\GameConfig.xaml" />
     <None Remove="Controls\ContentShow.xaml" />
     <None Remove="Controls\GameArchiveShow.xaml" />
     <None Remove="Controls\ImageUploader.xaml" />
@@ -107,6 +108,11 @@
     <Content Update="Assets\pic\pic3.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ContentDialog\GameConfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\GameArchiveShow.xaml">

@@ -52,10 +52,25 @@ namespace game_archive_manager.Controls
             set { SetValue(ImageDataProperty, value); }
         }
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
+        private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
             // 打开编辑窗口
-            // 待完成
+            // 创建一个
+            ContentDialog dialog = new ContentDialog();
+
+            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+            dialog.XamlRoot = this.XamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Title = "GameConfig";
+            dialog.PrimaryButtonText = "Save";
+            dialog.SecondaryButtonText = "Don't Save";
+            dialog.CloseButtonText = "Cancel";
+            dialog.DefaultButton = ContentDialogButton.Primary;
+            dialog.Content = new ContentDialogs.GameConfig();
+
+            var result = await dialog.ShowAsync();
+
         }
+    
     }
 }
