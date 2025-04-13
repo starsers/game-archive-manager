@@ -17,10 +17,10 @@
             <TextBlock Text="游戏名称：" x:Name="GameNameTextBlock" Margin="8,0,0,0" VerticalAlignment="Center" LineHeight="20" />
             <TextBox PlaceholderText="在此输入..." Width="300" />
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <!--<StackPanel Orientation="Horizontal">
             <TextBlock Text="匹配规则：" Margin="8,0,0,0" VerticalAlignment="Center" LineHeight="20" />
             <ComboBox Width="300" PlaceholderText="请选择" ItemsSource="{Binding GetMatchRuleNames}"/>
-        </StackPanel>
+        </StackPanel>-->
         <ItemsControl ItemsSource="{Binding ActiveMatchRules}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
