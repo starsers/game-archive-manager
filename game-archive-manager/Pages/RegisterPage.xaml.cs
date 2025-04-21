@@ -1,5 +1,4 @@
 using game_archive_manager.Helper;
-using game_archive_manager.Pages;
 using game_archive_manager.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -16,29 +15,32 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using game_archive_manager.Models;
+using game_archive_manager.Helper;
+using game_archive_manager.Services;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace game_archive_manager
+namespace game_archive_manager.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class LoginPage : Page
+    public sealed partial class RegisterPage : Page
     {
         private UserRepository _userRepository;
 
-        public LoginPage()
+        public RegisterPage()
         {
             this.InitializeComponent();
             _userRepository = new UserRepository();
         }
 
-        private async void btnLogin_Click(object sender, RoutedEventArgs e)
+        private async void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             string username = txtUsername.Text;
             string password = txtPassword.Password;
+            string confirmPassword = txtConfirmPassword.Password;
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -46,32 +48,45 @@ namespace game_archive_manager
                 return;
             }
 
-            User user = await _userRepository.GetUserByUsernameAsync(username);
-
-            if (user == null)
+            if (password != confirmPassword)
             {
-                ShowError("用户名不存在");
+                ShowError("两次输入的密码不一致");
                 return;
             }
 
-            if (!PasswordHasher.VerifyPassword(password, user.PasswordHash))
+            User existingUser = await _userRepository.GetUserByUsernameAsync(username);
+            if (existingUser != null)
             {
-                ShowError("密码错误");
+                ShowError("用户名已存在");
                 return;
             }
 
-            // 登录成功
+            User newUser = new User
+            {
+                Username = username,
+                PasswordHash = PasswordHasher.HashPassword(password)
+            };
+
+            await _userRepository.SaveUserAsync(newUser);
+
             infoBar.Title = "成功";
-            infoBar.Message = "登录成功";
+            infoBar.Message = "注册成功";
             infoBar.Severity = InfoBarSeverity.Success;
             infoBar.IsOpen = true;
 
-            // TODO: 导航到应用主页面
+            // 注册成功后延迟返回登录页
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += (s, args) => {
+                timer.Stop();
+                Frame.Navigate(typeof(LoginPage));
+            };
+            timer.Start();
         }
 
-        private void lnkRegister_Click(object sender, RoutedEventArgs e)
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(RegisterPage));
+            Frame.Navigate(typeof(LoginPage));
         }
 
         private void ShowError(string message)
