@@ -15,8 +15,17 @@
         <TextBox x:Name="txtUsername" Header="用户名:" PlaceholderText="请输入用户名" 
                  Margin="0,0,0,10"/>
 
+        <!-- 只保留一个密码框并添加实时检测 -->
         <PasswordBox x:Name="txtPassword" Header="密码:" PlaceholderText="请输入密码" 
-                     Margin="0,0,0,10"/>
+                     Margin="0,0,0,10" PasswordChanged="txtPassword_PasswordChanged"/>
+
+        <!-- 密码强度显示区域 -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="密码强度:" VerticalAlignment="Center"/>
+            <Rectangle x:Name="strengthIndicator" Width="100" Height="10" Margin="10,0" 
+                       Fill="Gray" RadiusX="3" RadiusY="3" VerticalAlignment="Center"/>
+            <TextBlock x:Name="strengthText" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        </StackPanel>
 
         <PasswordBox x:Name="txtConfirmPassword" Header="确认密码:" 
                      PlaceholderText="请再次输入密码" Margin="0,0,0,20"/>
