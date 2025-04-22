@@ -22,6 +22,9 @@ using System.Collections.ObjectModel;
 using game_archive_manager.DataItems;
 using System.Diagnostics;
 
+using game_archive_manager.Helper;
+using Windows.ApplicationModel.DataTransfer;
+using Microsoft.UI.Xaml.Documents;
 namespace game_archive_manager
 {
     /// <summary>
@@ -53,16 +56,15 @@ namespace game_archive_manager
             if (comboBox != null && comboBox.SelectedItem != null)
             {
                 // 获取 ComboBox 所在的 MatchRule 实例
-                var matchRule = comboBox.DataContext as MatchRule;
+                var matchRule = comboBox.SelectedItem as MatchRule;
                 if (matchRule != null)
                 {
+                    Debug.WriteLine($"之前规则: {SelectedRule}");
                     Debug.WriteLine($"当前规则: {matchRule}");
 
-                    if (comboBox.SelectedItem != null)
-                    {
-                        RuleNameAndRule selectedItem = (RuleNameAndRule)comboBox.SelectedItem;
-                        Debug.WriteLine($"选中的项: {selectedItem}");
-                    }
+                    SelectedRule = matchRule;
+                    Debug.WriteLine($"选中的项: {SelectedRule}");
+
                 }
             }
         }
@@ -108,6 +110,103 @@ namespace game_archive_manager
                 {
                     SelectedRule = null; // 没有规则可选
                 }
+            }
+        }
+
+        // 当 AI Chat Expander 展开时触发
+        private void AiChatExpander_Expanded(Expander sender, ExpanderExpandingEventArgs args)
+        {
+            // Add your logic here
+        }
+
+        // 当 AI Chat Expander 收起时触发
+        private void AiChatExpander_Collapsed(Expander sender, ExpanderCollapsedEventArgs args)
+        {
+            // Add your logic here for when the Expander is collapsed
+        }
+
+        // 处理 Send 按钮点击事件
+        private async void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            // 获取 TextBox 中的消息内容
+            var button = sender as Button;
+            if (button != null)
+            {
+                var parentPanel = button.Parent as StackPanel;
+                if (parentPanel != null)
+                {
+                    // 查找 StackPanel 中的 RichEditBox
+                    var messageBox = parentPanel.Children.OfType<RichEditBox>().FirstOrDefault();
+                    if (messageBox != null)
+                    {
+                        string message;
+                        messageBox.Document.GetText((Microsoft.UI.Text.TextGetOptions)Windows.UI.Text.TextGetOptions.None, out message);
+                        Debug.WriteLine($"发送的消息: {message}");
+
+                        // 在这里处理发送的消息
+                        var difyClient = new DifyClient("app-xFnWSffQtkmxTUHHOKRiqwXq");
+                        try
+                        {
+                            var response = await difyClient.SendChatMessageAsync(message);
+
+                            Debug.WriteLine("回答: " + response["answer"]);
+                            Debug.WriteLine("使用的Token数: " + response["metadata"]["usage"]["total_tokens"]);
+
+                            // 更新 AI 回复内容
+                            if (AiResponseBox != null && response["answer"] != null)
+                            {
+                                AiResponseBox.Blocks.Clear();
+                                var paragraph = new Paragraph();
+                                paragraph.Inlines.Add(new Run { Text = response["answer"].ToString() });
+                                AiResponseBox.Blocks.Add(paragraph);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"请求失败: {ex.Message}");
+                        }
+
+                        // 清空输入框
+                        messageBox.Document.SetText((Microsoft.UI.Text.TextSetOptions)Windows.UI.Text.TextSetOptions.None, string.Empty);
+                    }
+                }
+            }
+        }
+
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            // 获取 RichTextBlock 中的选中文本
+            var selectedText = AiResponseBox.SelectedText;
+
+            if (!string.IsNullOrEmpty(selectedText))
+            {
+                // 创建 DataPackage 并将选中文本复制到剪贴板
+                var dataPackage = new DataPackage();
+                dataPackage.SetText(selectedText);
+                Clipboard.SetContent(dataPackage);
+
+                // 可选：显示复制成功的提示
+                var dialog = new ContentDialog
+                {
+                    Title = "复制成功",
+                    Content = "选中文本已复制到剪贴板。",
+                    CloseButtonText = "确定",
+                    XamlRoot = this.Content.XamlRoot
+
+                };
+                _ = dialog.ShowAsync();
+            }
+            else
+            {
+                // 可选：显示未选择文本的提示
+                var dialog = new ContentDialog
+                {
+                    Title = "复制失败",
+                    Content = "请先选择要复制的文本。",
+                    CloseButtonText = "确定",
+                    XamlRoot = this.Content.XamlRoot
+                };
+                _ = dialog.ShowAsync();
             }
         }
     }

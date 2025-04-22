@@ -1,30 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Page
-    x:Class="game_archive_manager.SettingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:game_archive_manager"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+<Page  
+   x:Class="game_archive_manager.SettingsPage"  
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+   xmlns:local="using:game_archive_manager"  
+   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+   mc:Ignorable="d"  
+   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">  
 
-    <Grid>
-        <TextBlock Text="Settings Page" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,50,0,0">
-                <ComboBox Width="300" PlaceholderText="Select a Rule" Margin="0,0,0,10" ItemsSource="{Binding Rules}"  
-                     DisplayMemberPath="RuleName" 
-                     SelectedItem="{Binding SelectedRule, Mode=TwoWay}"  
-                     SelectionChanged="Rules_SelectionChanged" />
-            <Button Content="Add Rule" Click="AddRuleButton_Click" Margin="0,0,0,10" />
-            </StackPanel>
-            <TextBox Width="300" PlaceholderText="Enter Rule Name" Text="{Binding RuleName}" x:Name="RuleName" Margin="0,0,0,10" />
-            <TextBox Width="300" PlaceholderText="Enter Rule Content" x:Name="RuleContent" Margin="0,0,0,10" />
-            <Button Content="Save Rule" Click="SaveRuleButton_Click" Margin="0,0,0,10" />
-            <Button Content="Delete Rule" Click="DeleteRuleButton_Click" Margin="0,0,0,10" />
-            
-        </StackPanel>
-        <Button Content="Home" Click="NavigateToHomePage" Margin="10" />
-    </Grid>
+   <Grid>  
+       <Grid.ColumnDefinitions>  
+           <ColumnDefinition Width="*" />  
+           <ColumnDefinition Width="Auto" />  
+       </Grid.ColumnDefinitions>  
+
+       <RelativePanel x:Name="MainPanel" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Column="0">  
+           <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">  
+               <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,50,0,0">  
+                   <ComboBox Width="300" PlaceholderText="Select a Rule" Margin="0,0,0,10" ItemsSource="{Binding Rules}"  
+                       DisplayMemberPath="RuleName"  
+                       SelectedItem="{Binding SelectedRule, Mode=TwoWay}"  
+                       SelectionChanged="Rules_SelectionChanged" />  
+                   <Button Content="Add Rule" Click="AddRuleButton_Click" Margin="0,0,0,10" />  
+               </StackPanel>
+                <TextBox Width="300" PlaceholderText="Enter Rule Name" Text="{Binding SelectedRule.RuleName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="RuleName" Margin="0,0,0,10" />  
+               <TextBox Width="300" PlaceholderText="Enter Rule Content" x:Name="RuleContent" Margin="0,0,0,10" />  
+               <Button Content="Save Rule" Click="SaveRuleButton_Click" Margin="0,0,0,10" />  
+               <Button Content="Delete Rule" Click="DeleteRuleButton_Click" Margin="0,0,0,10" />  
+           </StackPanel>  
+       </RelativePanel>  
+
+       <Expander x:Name="AiChatExpander" Header="AI Chat" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="10,10,10,10"  
+                 Expanding="AiChatExpander_Expanded" Collapsed="AiChatExpander_Collapsed">
+           <Grid Width="300" Height="Auto" >
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">
+
+                    <!--<TextBlock Text="Chat with AI" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,10" />-->
+
+                    <!-- AI 回复内容显示区域 -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="200">
+                        <RichTextBlock IsTextSelectionEnabled="True"  
+                              x:Name="AiResponseBox"  
+                              TextWrapping="Wrap"  
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"  
+                              Margin="10">
+                            <Paragraph>AI's response will appear here...</Paragraph>
+                        </RichTextBlock>
+                    </ScrollViewer>
+
+                    <Button Content="Copy" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Click="CopyButton_Click" />
+                    <RichEditBox AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" PlaceholderText="Enter your message here..." Margin="10,50,10,10" />
+                    <Button Content="Send" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Click="SendButton_Click"/>
+                </StackPanel>
+            </Grid>  
+       </Expander>  
+
+       <Button Content="Home" Click="NavigateToHomePage" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Left" />  
+   </Grid>  
 </Page>

@@ -126,6 +126,11 @@ namespace game_archive_manager.DataItems.DB
         void CreateDierctory()
         {
             var path = Path.GetDirectoryName(DatabasePath);
+            if (path == null)
+            {
+                Debug.WriteLine("路径无效");
+                return;
+            }
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
