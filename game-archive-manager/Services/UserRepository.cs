@@ -12,7 +12,7 @@ namespace game_archive_manager.Services
 {
     public class UserRepository
     {
-        private string fileName = "users.db";
+        //private string fileName = "users.db";
         private DataBase DataBase = new DataBase("users.db");
 
 

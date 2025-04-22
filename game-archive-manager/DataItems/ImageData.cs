@@ -44,12 +44,16 @@ namespace game_archive_manager.DataItems
             }
         }
 
-        // 将路径转换为BitmapImage，便于XAML直接绑定
+        // Updated the ImageSource property to ensure it does not return null by using a default BitmapImage instance.
         public BitmapImage ImageSource
         {
             get
             {
-                if (string.IsNullOrEmpty(ImagePath)) return null;
+                if (string.IsNullOrEmpty(ImagePath))
+                {
+                    // Return a default BitmapImage instance instead of null
+                    return new BitmapImage();
+                }
 
                 var bitmap = new BitmapImage();
                 Uri imageUri;
@@ -70,7 +74,7 @@ namespace game_archive_manager.DataItems
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
