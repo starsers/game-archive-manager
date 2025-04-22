@@ -6,6 +6,7 @@
     xmlns:local="using:game_archive_manager.ContentDialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:game_archive_manager.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     x:Name="RootPage">
@@ -17,6 +18,7 @@
             <TextBlock Text="游戏名称：" x:Name="GameNameTextBlock" Margin="8,0,0,0" VerticalAlignment="Center" LineHeight="20" />
             <TextBox PlaceholderText="在此输入..." Width="300" />
         </StackPanel>
+        <controls:ImageUploader />
         <!--<StackPanel Orientation="Horizontal">
             <TextBlock Text="匹配规则：" Margin="8,0,0,0" VerticalAlignment="Center" LineHeight="20" />
             <ComboBox Width="300" PlaceholderText="请选择" ItemsSource="{Binding GetMatchRuleNames}"/>

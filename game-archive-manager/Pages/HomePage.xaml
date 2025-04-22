@@ -34,7 +34,7 @@
         </StackPanel>
         <controls:ContentShow/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <controls:ImageUploader />
+            
         </StackPanel>
     </Grid>
 </Page>
