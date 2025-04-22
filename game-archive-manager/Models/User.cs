@@ -10,5 +10,15 @@ namespace game_archive_manager.Models
     {
         public string Username { get; set; }
         public string PasswordHash { get; set; }
+        public User()
+        {
+            Username= string.Empty;
+            PasswordHash= string.Empty;
+        }
+        public User(string username, string passwordHash)
+        {
+            Username = username;
+            PasswordHash = passwordHash;
+        }
     }
 }

@@ -15,8 +15,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using game_archive_manager.Models;
-using game_archive_manager.Helper;
-using game_archive_manager.Services;
 using Microsoft.UI;
 using static game_archive_manager.Helper.PasswordHasher;
 
