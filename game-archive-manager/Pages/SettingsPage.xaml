@@ -5,12 +5,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:game_archive_manager"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <TextBlock Text="Settings Page" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,50,0,0">
+                <ComboBox Width="300" PlaceholderText="Select a Rule" Margin="0,0,0,10" ItemsSource="{Binding Rules}"  
+                     DisplayMemberPath="RuleName" 
+                     SelectedItem="{Binding SelectedRule, Mode=TwoWay}"  
+                     SelectionChanged="Rules_SelectionChanged" />
+            <Button Content="Add Rule" Click="AddRuleButton_Click" Margin="0,0,0,10" />
+            </StackPanel>
+            <TextBox Width="300" PlaceholderText="Enter Rule Name" Text="{Binding RuleName}" x:Name="RuleName" Margin="0,0,0,10" />
+            <TextBox Width="300" PlaceholderText="Enter Rule Content" x:Name="RuleContent" Margin="0,0,0,10" />
+            <Button Content="Save Rule" Click="SaveRuleButton_Click" Margin="0,0,0,10" />
+            <Button Content="Delete Rule" Click="DeleteRuleButton_Click" Margin="0,0,0,10" />
+            
+        </StackPanel>
         <Button Content="Home" Click="NavigateToHomePage" Margin="10" />
     </Grid>
 </Page>
