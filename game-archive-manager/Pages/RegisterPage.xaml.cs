@@ -83,7 +83,7 @@ namespace game_archive_manager.Pages
                 ShowError("密码强度不足，请使用至少8位包含字母和数字的组合");
                 return;
             }
-                User existingUser = await _userRepository.GetUserByUsernameAsync(username);
+                DataItems.User existingUser = await _userRepository.GetUserByUsernameAsync(username);
             if (existingUser != null)
             {
                 ShowError("用户名已存在");
@@ -96,7 +96,7 @@ namespace game_archive_manager.Pages
                 PasswordHash = PasswordHasher.HashPassword(password)
             };
 
-            await _userRepository.SaveUserAsync(newUser);
+            await _userRepository.AddUserAsync(new DataItems.User(newUser));
 
             infoBar.Title = "成功";
             infoBar.Message = "注册成功";

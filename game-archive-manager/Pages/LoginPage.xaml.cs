@@ -16,6 +16,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using game_archive_manager.Models;
+using Microsoft.UI.Xaml.Media.Animation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -46,7 +47,7 @@ namespace game_archive_manager
                 return;
             }
 
-            User user = await _userRepository.GetUserByUsernameAsync(username);
+            DataItems.User user = await _userRepository.GetUserByUsernameAsync(username);
 
             if (user == null)
             {
@@ -66,7 +67,9 @@ namespace game_archive_manager
             infoBar.Severity = InfoBarSeverity.Success;
             infoBar.IsOpen = true;
 
-            // TODO: 导航到应用主页面
+            // 导航到应用主页面
+            Frame.Navigate(typeof(HomePage), null, new DrillInNavigationTransitionInfo());
+
         }
 
         private void lnkRegister_Click(object sender, RoutedEventArgs e)
