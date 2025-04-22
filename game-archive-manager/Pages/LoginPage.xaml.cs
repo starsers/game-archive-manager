@@ -84,5 +84,14 @@ namespace game_archive_manager
             infoBar.Severity = InfoBarSeverity.Error;
             infoBar.IsOpen = true;
         }
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                btnLogin_Click(this, new RoutedEventArgs());
+            }
+        }
     }
 }

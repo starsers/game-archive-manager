@@ -23,6 +23,7 @@ namespace ExampleApp
             this.InitializeComponent();
             this.Opened += SignInContentDialog_Opened;
             this.Closing += SignInContentDialog_Closing;
+            this.DefaultButton = ContentDialogButton.Primary;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

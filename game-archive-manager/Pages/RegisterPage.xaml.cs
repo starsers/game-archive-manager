@@ -123,5 +123,18 @@ namespace game_archive_manager.Pages
             infoBar.Severity = InfoBarSeverity.Error;
             infoBar.IsOpen = true;
         }
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                btnRegister_Click(this, new RoutedEventArgs());
+            }
+            else if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                btnBack_Click(this, new RoutedEventArgs());
+            }
+        }
     }
 }
