@@ -54,5 +54,9 @@ namespace game_archive_manager
         {
             return m_window ?? throw new InvalidOperationException("Window has not been initialized.");
         }
+        public Window MainWindow
+        {
+            get => GetWindow();
+        }
     }
 }

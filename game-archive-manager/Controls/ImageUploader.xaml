@@ -6,12 +6,52 @@
     xmlns:local="using:game_archive_manager.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+
     mc:Ignorable="d">
 
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Upload Image" Click="UploadImageButton_Click" Margin="10"/>
-            <Image x:Name="UploadedImage" Width="200" Height="200" Margin="10"/>
+            <!--<Button Content="Upload Image" Click="UploadImageButton_Click" Margin="10">-->
+            <Button Content="Upload Image" Click="UploadImageButton_Click" Margin="10">
+                <Button.Flyout>
+                    <Flyout x:Name="UploadImageFlyout" Closing="Flyout_Closing">
+                        <Grid RowSpacing="24">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <controls:ImageCropper x:Name="imageCropper"
+                                    Width="400"
+                                    Height="520"
+                                    AspectRatio="{x:Bind ImageAspectRatio, Mode=OneWay}"
+                                    CropShape="{x:Bind ImageCropShape, Mode=OneWay}"
+                                    ThumbPlacement="{x:Bind ImageCropperSample, Mode=OneWay}" />
+                            <StackPanel Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                <Button Click="PickButton_Click"
+                                        Content="Pick image"
+                                        Style="{StaticResource AccentButtonStyle}" />
+                                <Button Click="SaveButton_Click"
+                                        Content="Save"
+                                        Style="{StaticResource AccentButtonStyle}" />
+                                <Button Click="ResetButton_Click"
+                                        Content="Reset"
+                                        Style="{StaticResource AccentButtonStyle}" />
+                                <Button x:Name="CloseButton" Content="Close" Click="CloseFlyout_Click" />
+                            </StackPanel>
+                        </Grid>
+
+                        <!--<StackPanel>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="All items will be removed. Do you want to continue?" Margin="0,0,0,12" />
+                            <Button Click="DeleteConfirmation_Click" Content="Yes, empty my cart" />
+                        </StackPanel>-->
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+            <!--<Image x:Name="UploadedImage" Width="200" Height="200" Margin="10"/>-->
         </StackPanel>
     </Grid>
 </UserControl>

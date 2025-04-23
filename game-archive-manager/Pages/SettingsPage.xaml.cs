@@ -25,6 +25,7 @@ using System.Diagnostics;
 using game_archive_manager.Helper;
 using Windows.ApplicationModel.DataTransfer;
 using Microsoft.UI.Xaml.Documents;
+using System.ComponentModel;
 namespace game_archive_manager
 {
     /// <summary>
@@ -32,9 +33,25 @@ namespace game_archive_manager
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public ObservableCollection<MatchRule> Rules { get; set; }
 
-        public MatchRule? SelectedRule { get; set; }
+        private MatchRule? _selectedRule { get; set; }
+        public MatchRule? SelectedRule {
+            get => _selectedRule;
+            set
+            {
+                _selectedRule = value ?? new MatchRule();
+                // 触发属性更改通知
+                OnPropertyChanged(nameof(SelectedRule));
+            }
+        }
+
         public SettingsPage()
         {
             this.InitializeComponent();
@@ -63,9 +80,19 @@ namespace game_archive_manager
                     Debug.WriteLine($"当前规则: {matchRule}");
 
                     SelectedRule = matchRule;
+                    UpdateSelectedRuleShow();
                     Debug.WriteLine($"选中的项: {SelectedRule}");
 
                 }
+            }
+        }
+        private void UpdateSelectedRuleShow()
+        {
+            // 更新选中规则的显示
+            if (SelectedRule != null)
+            {
+                RuleName.Text = SelectedRule.RuleName;
+                //RuleContent.Text = SelectedRule.RuleContent;
             }
         }
         private void AddRuleButton_Click(object sender, RoutedEventArgs e)
