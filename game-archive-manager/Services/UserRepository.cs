@@ -7,14 +7,20 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using game_archive_manager.DataItems;
 using game_archive_manager.DataItems.DB;
+using Serilog;
 
 namespace game_archive_manager.Services
 {
     public class UserRepository
     {
         //private string fileName = "users.db";
-        private DataBase DataBase = new DataBase("users.db");
+        private DataBase DataBase { get; }
 
+        public UserRepository()
+        {
+            DataBase = new DataBase("users.db");
+            Log.Information("UserRepository initialized.");
+        }
 
         //private async Task<StorageFile> GetUserFileAsync()
         //{
@@ -52,6 +58,7 @@ namespace game_archive_manager.Services
         public async Task InitAsync()
         {
             await DataBase.InitAsync<User>(); 
+            Log.Information("User table initialized.");
         }
         public async Task<List<User>> GetAllUsersAsync()
         {
@@ -97,7 +104,7 @@ namespace game_archive_manager.Services
 
             await InitAsync();
             List<User> users = await DataBase.EncryptedDb.QueryAsync<User>("select * from User where UserName = ?", username);
-
+            Log.Information($"ReadUserName");
             return users.FirstOrDefault(u => u.UserName == username);
         }
     }

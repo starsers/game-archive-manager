@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Serilog;
 namespace game_archive_manager.DataItems.DB
 {
     class DataBase
@@ -37,6 +38,7 @@ namespace game_archive_manager.DataItems.DB
                 });
 
             EncryptedDb = new SQLiteAsyncConnection(options);
+            Log.Information($"数据库连接成功: {DatabasePath}");
             CreateDierctory();
         }
 
@@ -54,6 +56,7 @@ namespace game_archive_manager.DataItems.DB
             {
                 await EncryptedDb.CreateTableAsync<T>();
                 Debug.WriteLine($"{typeof(T).Name} 表已创建或已存在。");
+                Log.Information($"{typeof(T).Name} 表已创建或已存在。");
             }
             catch (Exception ex)
             {
@@ -72,6 +75,7 @@ namespace game_archive_manager.DataItems.DB
             catch (Exception ex)
             {
                 Debug.WriteLine($"数据插入异常: {ex.Message}");
+                Log.Error($"数据插入异常: {ex.Message}");
                 throw;
             }
         }
@@ -104,6 +108,7 @@ namespace game_archive_manager.DataItems.DB
             catch (Exception ex)
             {
                 Debug.WriteLine($"获取数据失败: {ex.Message}");
+                Log.Error($"获取数据失败: {ex.Message}");
                 throw;
             }
         }
@@ -118,6 +123,7 @@ namespace game_archive_manager.DataItems.DB
             catch (Exception ex)
             {
                 Debug.WriteLine($"条件查询失败: {ex.Message}");
+                Log.Error($"条件查询失败: {ex.Message}");
                 throw;
             }
         }
@@ -129,11 +135,13 @@ namespace game_archive_manager.DataItems.DB
             if (path == null)
             {
                 Debug.WriteLine("路径无效");
+                Log.Error("路径无效");
                 return;
             }
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
+                Debug.WriteLine($"目录创建成功: {path}");
             }
         }
     }

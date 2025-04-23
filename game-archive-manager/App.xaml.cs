@@ -15,7 +15,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-
+using Serilog;
+using System.Diagnostics;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -32,6 +33,17 @@ namespace game_archive_manager
         /// </summary>
         public App()
         {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            Debug.WriteLine($"Current Directory: {currentDirectory}");
+            string logPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "GameArchiveManger", "logs","log.txt");
+            // 配置 Serilog
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug() // 设置日志级别
+                .WriteTo.Console() // 输出到控制台
+                .WriteTo.File(logPath, rollingInterval: RollingInterval.Day) // 输出到文件
+                .CreateLogger();
+
+            Log.Information("Application starting...");
             this.InitializeComponent();
         }
 
@@ -45,6 +57,7 @@ namespace game_archive_manager
             loginWindow.ExtendsContentIntoTitleBar = true;
             
             loginWindow.Activate();
+            Log.Information("Login window activated.");
             m_window = new MainWindow();
             m_window.Activate();
         }
@@ -53,6 +66,11 @@ namespace game_archive_manager
         public Window GetWindow()
         {
             return m_window ?? throw new InvalidOperationException("Window has not been initialized.");
+        }
+        ~App()
+        {
+            Log.Information("Application exiting...");
+            Log.CloseAndFlush();
         }
         public Window MainWindow
         {

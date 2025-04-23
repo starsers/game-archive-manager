@@ -17,7 +17,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using game_archive_manager.Models;
 using Microsoft.UI.Xaml.Media.Animation;
-
+using Serilog;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
