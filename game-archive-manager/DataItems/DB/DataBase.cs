@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Serilog;
+using System.Diagnostics.CodeAnalysis;
 namespace game_archive_manager.DataItems.DB
 {
     class DataBase
@@ -80,7 +81,7 @@ namespace game_archive_manager.DataItems.DB
             }
         }
 
-        public void ShowData<T>() where T : new()
+        public void ShowData<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T>() where T : new()
         {
             // 查询所有数据
             var allData = EncryptedDb.Table<T>().ToListAsync().Result;
