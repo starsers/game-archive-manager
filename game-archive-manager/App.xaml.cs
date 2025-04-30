@@ -59,6 +59,7 @@ namespace game_archive_manager
             loginWindow.Activate();
             Log.Information("Login window activated.");
             m_window = new MainWindow();
+
             m_window.Activate();
         }
 

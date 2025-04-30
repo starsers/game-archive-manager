@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
         <!-- 图片展示区域 -->
@@ -30,6 +31,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- 图片名称 -->
@@ -45,7 +48,22 @@
                         MinWidth="60"
                         Margin="5,0,0,0"
                         Click="EditButton_Click"/>
+                <ComboBox
+                          Grid.Column="2"
+                          Width="100"
+                          Margin="5,0,0,0" 
+                          SelectedItem="{Binding ImageData.SelectedRule, Mode=TwoWay}"
+                          ItemsSource="{Binding ImageData.ActiveMatchRuleNames}"
+                          DisplayMemberPath="Rule.RuleName"/>
+                
             </Grid>
         </Border>
+        <ComboBox
+              Grid.Row="2"
+              Margin="5,0,0,0"
+              PlaceholderText="请选择一个存档"
+              SelectedItem="{Binding ImageData.SelectArchive, Mode=TwoWay}"
+              ItemsSource="{Binding ImageData.Archives}"
+              DisplayMemberPath="Rule.Rule.RuleName"/>
     </Grid>
 </UserControl>

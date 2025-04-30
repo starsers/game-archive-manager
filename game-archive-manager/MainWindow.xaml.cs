@@ -17,8 +17,9 @@ using Microsoft.UI.Windowing;
 
 using ExampleApp;
 using System.Threading;
-using Windows.UI.WindowManagement;
+//using Windows.UI.WindowManagement;
 using WinRT.Interop;
+using Microsoft.UI;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -32,6 +33,13 @@ namespace game_archive_manager
         public MainWindow()
         {
             this.InitializeComponent();
+
+            IntPtr WindowHandle = WindowNative.GetWindowHandle(this);
+            WindowId id = Win32Interop.GetWindowIdFromWindow(WindowHandle);
+            AppWindow appWindow = AppWindow.GetFromWindowId(id);
+            appWindow.SetIcon("Assets/LockScreenLogo.scale-200.ico");
+
+
             MainFrame = new Frame(); // Initialize MainFrame
             this.Content = MainFrame; // Set MainFrame as the content of the window
             MainFrame.Navigate(typeof(HomePage));

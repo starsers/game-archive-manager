@@ -17,6 +17,15 @@ namespace game_archive_manager.Controls
             ImageData("/Assets/pic/pic2.png","虎"),
             ImageData("/Assets/pic/pic3.jpg","狼")
         };
+        public List<ImageData> Items
+        {
+            get { return _items; }
+            set
+            {
+                _items = value;
+                OnPropertyChanged(nameof(Items));
+            }
+        }
 
         private static ImageData ImageData(string v1, string v2)
         {

@@ -16,12 +16,15 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 using game_archive_manager.DataItems;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace game_archive_manager.Controls
 {
     // GameArchiveShow.xaml.cs
-    public sealed partial class GameArchiveShow : UserControl
+    public partial class GameArchiveShow : UserControl, INotifyPropertyChanged
     {
+
         public GameArchiveShow()
         {
             this.InitializeComponent();
@@ -49,7 +52,17 @@ namespace game_archive_manager.Controls
         public ImageData ImageData
         {
             get { return (ImageData)GetValue(ImageDataProperty); }
-            set { SetValue(ImageDataProperty, value); }
+            set { 
+                SetValue(ImageDataProperty, value);
+                OnPropertyChanged(nameof(ImageDataProperty));
+            }
+        }
+        // 解决 CS8612 错误：将事件声明为可空类型
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([AllowNull] string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)

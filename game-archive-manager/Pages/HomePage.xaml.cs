@@ -23,6 +23,8 @@ using ExampleApp;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Windows.Storage;
+using Windows.Gaming.Preview;
+using game_archive_manager.DataItems;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -36,6 +38,13 @@ namespace game_archive_manager
     {
         //public ObservableCollection<ControlInfoDataItem> Items { get; set; }
 
+        private List<string> _gameNames
+        {
+            get => GamesContentShow.Items.OfType<ImageData>()
+                .Select(item => item.Name)
+                .ToList();
+        }
+
         public HomePage()
         {
             this.InitializeComponent();
@@ -48,6 +57,51 @@ namespace game_archive_manager
             //Items = controlInfoDataItems;
             //this.DataContext = this;
         }
+        // Handle text change and present suitable items
+        private void Search_Control_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            // Since selecting an item will also change the text,
+            // only listen to changes caused by user entering text.
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                var suitableItems = new List<string>();
+                var splitText = sender.Text.ToLower().Split(" ");
+                foreach (var game in _gameNames)
+                {
+                    var found = splitText.All((key) =>
+                    {
+                        return game.ToLower().Contains(key);
+                    });
+                    if (found)
+                    {
+                        suitableItems.Add(game);
+                    }
+                }
+                if (suitableItems.Count == 0)
+                {
+                    suitableItems.Add("No results found");
+                }
+                sender.ItemsSource = suitableItems;
+            }
+        }
+        // Handle user selecting an item, in our case just output the selected item.
+        private void Search_Control_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            SearchBox.Text = args.SelectedItem.ToString();
+        }
+        // Add this method to the HomePage class
+        private void Search_Control_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            // Handle the QuerySubmitted event here
+            // For example, you can log the query text or perform a search
+            string queryText = args.QueryText;
+            System.Diagnostics.Debug.WriteLine($"Query submitted: {queryText}");
+
+            //这里到时候加入定位的语句
+        }
+
+
+
         private void NavigateToSettingsPage(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
@@ -73,6 +127,9 @@ namespace game_archive_manager
             }
         }
 
-
+        private void AddGame_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // 添加游戏
+        }
     }
 }
