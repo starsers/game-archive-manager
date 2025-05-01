@@ -31,24 +31,28 @@ namespace game_archive_manager.Controls
         public GameArchiveShow()
         {
             this.InitializeComponent();
+            SelectArchive = new Archive();
             this.DataContext = this; // 确保 DataContext 正确设置
         }
 
         public GameArchiveShow(ImageData imageData)
         {
             this.InitializeComponent();
+            SelectArchive = new Archive();
             ImageData = imageData;
             this.DataContext = this; // 确保 DataContext 正确设置
         }
 
         public GameArchiveShow(string imagePath, string name)
         {
+            SelectArchive = new Archive();
             this.InitializeComponent();
             ImageData = new ImageData { ImagePath = imagePath, Name = name };
             this.DataContext = this; // 确保 DataContext 正确设置
         }
         public GameArchiveShow(GameInfo gameInfo)
         {
+            SelectArchive = new Archive();
             this.InitializeComponent();
             GameInfo = gameInfo;
             this.DataContext = this; // 确保 DataContext 正确设置
@@ -82,8 +86,19 @@ namespace game_archive_manager.Controls
         }
 
         private GameInfo gameInfo = new GameInfo();
-        public GameInfo GameInfo { get => gameInfo; set => gameInfo = value; } 
-        public Archive SelectArchive = new Archive();
+        public GameInfo GameInfo { get => gameInfo; set => gameInfo = value; }
+        private object _selectArchive;
+
+        public object SelectArchive
+        {
+            get => _selectArchive;
+            set
+            {
+                _selectArchive = value;
+                OnPropertyChanged(nameof(SelectArchive));
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged([AllowNull] string propertyName)
@@ -182,16 +197,32 @@ namespace game_archive_manager.Controls
             }
 
         }
-
+        public bool IsArchiveDeleteEnabled
+        {
+            get; set;
+        } = false;
         private void Archive_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 处理选择变化
-            if (sender is ComboBox comboBox && comboBox.SelectedItem is Archive SelectArchive)
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is Archive)
             {
+                SelectArchive = (Archive)comboBox.SelectedItem;
                 // 加载文件
                 // 这里需要根据加密属性判断是否需要解密文件并加载
-
+                IsArchiveDeleteEnabled = true;
             }
+        }
+
+        private void ArchiveDelete_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // 删除选中的存档，未写完
+
+            IsArchiveDeleteEnabled = false;
+        }
+
+        private void ArchiveAdd_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // 添加存档，未写完
         }
     }
 }

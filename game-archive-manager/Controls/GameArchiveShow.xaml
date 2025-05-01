@@ -78,14 +78,36 @@
 
             </Grid>
         </Border>
-        <ComboBox
-              Grid.Row="3"
-              Margin="5,0,0,0"
-              PlaceholderText="请选择一个存档"
-              SelectedItem="{Binding SelectArchive, Mode=TwoWay}"
-              ItemsSource="{Binding GameInfo.Archives}"
-              SelectionChanged="Archive_SelectionChanged"
-            
-              DisplayMemberPath="ArchiveName"/>
+        <Border Grid.Row="3" 
+         Background="{StaticResource SystemControlBackgroundChromeMediumLowBrush}"
+         Padding="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="添加存档"
+                        x:Name="ArchiveAdd_Button"
+                        Click="ArchiveAdd_Button_Click"
+                        Margin="5,0,0,0"
+                        Grid.Column="0"/>
+                <Button Content="删除当前存档"
+                        x:Name="ArchiveDelete_Button"
+                        Click="ArchiveDelete_Button_Click"
+                        Margin="5,0,0,0"
+                        Grid.Column="1"
+                        IsEnabled="{Binding IsArchiveDeleteEnabled}"/>
+                <ComboBox
+                      Grid.Column="2"
+                      Margin="5,0,0,0"
+                      PlaceholderText="请选择一个存档"
+                      SelectedItem="{Binding SelectArchive, Mode=TwoWay}"
+                      ItemsSource="{Binding GameInfo.Archives}"
+                      SelectionChanged="Archive_SelectionChanged"
+        
+                      DisplayMemberPath="ArchiveName"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
