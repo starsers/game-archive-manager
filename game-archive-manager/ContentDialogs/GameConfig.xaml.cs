@@ -33,6 +33,7 @@ namespace game_archive_manager.ContentDialogs
     {
         public ObservableCollection<MatchRule> MatchRules { get; set; }
         public ObservableCollection<MatchRule> ActiveMatchRules { get; set; }
+
         public ICommand AddRuleCommand { get; }
         public ICommand RemoveRuleCommand { get; }
         public ObservableCollection<RuleNameAndRule> GetMatchRuleNames { get; }

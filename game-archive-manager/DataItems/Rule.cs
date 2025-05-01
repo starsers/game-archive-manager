@@ -8,7 +8,7 @@ namespace game_archive_manager.DataItems
         private string _ruleName = string.Empty;
         private string _ruleContent = string.Empty;
 
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int RuleId { get; set; }  // RID，主键，这个要不要自增？
 
         public string RuleName

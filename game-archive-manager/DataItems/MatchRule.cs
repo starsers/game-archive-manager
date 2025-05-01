@@ -10,6 +10,7 @@ namespace game_archive_manager.DataItems
     public class RuleNameAndRule
     {
         public MatchRule Rule { get; set; }
+        public int RuleId { get; set; }
         public RuleNameAndRule(MatchRule rule)
         {
             Rule = rule;
@@ -45,6 +46,7 @@ namespace game_archive_manager.DataItems
     public class MatchRule
     {
         public string RuleName { get; set; }
+        public int RuleId { get; set; }
         public RuleNameAndRule SelectedRule { get; set; }
         public ObservableCollection<RuleNameAndRule> OtherMatchRuleNames
         { get; set; }
@@ -59,13 +61,9 @@ namespace game_archive_manager.DataItems
             SelectedRule = new RuleNameAndRule(this);
             RuleName = ruleName;
             OtherMatchRuleNames = new ObservableCollection<RuleNameAndRule>();
+            RuleId = 0;
         }
-        public MatchRule(string ruleName, ObservableCollection<RuleNameAndRule> otherMatchRuleNames)
-        {
-            SelectedRule = new RuleNameAndRule(this);
-            RuleName = ruleName;
-            OtherMatchRuleNames = otherMatchRuleNames;
-        }
+
         // Replace the problematic line in the MatchRule constructor:
         public MatchRule(RuleNameAndRule ruleNameAndRule)
         {
@@ -75,10 +73,15 @@ namespace game_archive_manager.DataItems
                 RuleName = string.Empty;
                 SelectedRule = new RuleNameAndRule(this);
                 OtherMatchRuleNames = new ObservableCollection<RuleNameAndRule>();
+                RuleId = 0;
             }
-            RuleName = ruleNameAndRule.Rule.RuleName;
-            SelectedRule = ruleNameAndRule.Rule.SelectedRule;
-            OtherMatchRuleNames = new ObservableCollection<RuleNameAndRule>(ruleNameAndRule.Rule.OtherMatchRuleNames);
+            else
+            {
+                RuleName = ruleNameAndRule.Rule.RuleName;
+                SelectedRule = ruleNameAndRule.Rule.SelectedRule;
+                OtherMatchRuleNames = new ObservableCollection<RuleNameAndRule>(ruleNameAndRule.Rule.OtherMatchRuleNames);
+                RuleId = ruleNameAndRule.Rule.RuleId;
+            }
         }
 
         public override string ToString()

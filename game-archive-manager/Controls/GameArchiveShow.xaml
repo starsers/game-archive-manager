@@ -8,11 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="300"
-    xmlns:data="using:game_archive_manager">
+    xmlns:data="using:game_archive_manager" d:DataContext="{d:DesignInstance Type=local:GameArchiveShow}">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -32,7 +33,6 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- 图片名称 -->
@@ -48,22 +48,44 @@
                         MinWidth="60"
                         Margin="5,0,0,0"
                         Click="EditButton_Click"/>
+            </Grid>
+        </Border>
+        <Border Grid.Row="2" 
+                Background="{StaticResource SystemControlBackgroundChromeMediumLowBrush}"
+                Padding="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 规则匹配字段 -->
+                <TextBlock Grid.Column="0"
+                           x:Name="RuleContentMatch"
+                           Text="请选择一个规则"
+                           VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"
+                           FontSize="14"/>
                 <ComboBox
                           Grid.Column="2"
                           Width="100"
                           Margin="5,0,0,0" 
-                          SelectedItem="{Binding ImageData.SelectedRule, Mode=TwoWay}"
-                          ItemsSource="{Binding ImageData.ActiveMatchRuleNames}"
-                          DisplayMemberPath="Rule.RuleName"/>
-                
+                          PlaceholderText="规则"
+                          SelectedItem="{Binding SelectedRule, Mode=TwoWay}"
+                          ItemsSource="{Binding ActiveRules}"
+                          SelectionChanged="Rules_SelectionChanged"
+                          DisplayMemberPath="RuleName"/>
+
             </Grid>
         </Border>
         <ComboBox
-              Grid.Row="2"
+              Grid.Row="3"
               Margin="5,0,0,0"
               PlaceholderText="请选择一个存档"
-              SelectedItem="{Binding ImageData.SelectArchive, Mode=TwoWay}"
-              ItemsSource="{Binding ImageData.Archives}"
-              DisplayMemberPath="Rule.Rule.RuleName"/>
+              SelectedItem="{Binding SelectArchive, Mode=TwoWay}"
+              ItemsSource="{Binding GameInfo.Archives}"
+              SelectionChanged="Archive_SelectionChanged"
+            
+              DisplayMemberPath="ArchiveName"/>
     </Grid>
 </UserControl>
