@@ -12,12 +12,12 @@ namespace game_archive_manager.Controls
     public sealed partial class ContentShow : UserControl, INotifyPropertyChanged
     {
         // 数据源 需要更改 这里为测试
-        private List<ImageData> _items = new List<ImageData> {
-            ImageData("/Assets/pic/pic1.png","龙"),
-            ImageData("/Assets/pic/pic2.png","虎"),
-            ImageData("/Assets/pic/pic3.jpg","狼")
+        private List<GameInfo> _items = new List<GameInfo> {
+            GameInfo("/Assets/pic/pic1.png","龙"),
+            GameInfo("/Assets/pic/pic2.png","虎"),
+            GameInfo("/Assets/pic/pic3.jpg","狼")
         };
-        public List<ImageData> Items
+        public List<GameInfo> Items
         {
             get { return _items; }
             set
@@ -29,7 +29,15 @@ namespace game_archive_manager.Controls
 
         private static ImageData ImageData(string v1, string v2)
         {
-            return new ImageData(v1, v2);
+            return new DataItems.ImageData(v1, v2);
+        }
+        private static GameInfo GameInfo(string pic, string name)
+        {
+            return new DataItems.GameInfo
+            {
+                ImageData = new ImageData(pic, name),
+                GameName = name
+            };
         }
 
 
@@ -37,9 +45,9 @@ namespace game_archive_manager.Controls
         private int _currentIndex = 0;
 
         // 绑定属性
-        public ImageData? Component1 { get; set; }
-        public ImageData? Component2 { get; set; }
-        public ImageData? Component3 { get; set; }
+        public GameInfo? Component1 { get; set; }
+        public GameInfo? Component2 { get; set; }
+        public GameInfo? Component3 { get; set; }
 
         public ContentShow()
         {
@@ -68,7 +76,7 @@ namespace game_archive_manager.Controls
         }
 
         // 获取指定索引的项（循环）
-        private ImageData GetItemAt(int index)
+        private GameInfo GetItemAt(int index)
         {
             if (index < 0)
             {

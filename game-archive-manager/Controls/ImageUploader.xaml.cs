@@ -29,11 +29,12 @@ namespace game_archive_manager.Controls
 {
     public sealed partial class ImageUploader : UserControl
     {
-        private double ImageAspectRatio = 4d/3d;
+        private double ImageAspectRatio = 3d/4d;
         private CropShape ImageCropShape = CropShape.Rectangular;
         private ThumbPlacement ImageCropperSample = ThumbPlacement.Corners;
         private string ImageFileName = string.Empty;
-        private string SavingPath = string.Empty;
+        public string SavingPath = string.Empty;
+        public string savingFileName = "Cropped_Image";
         private bool CanCloseUploadImageFlyout = false; // 用于控制 Flyout 是否可以关闭
         public ImageUploader()
         {
@@ -68,7 +69,7 @@ namespace game_archive_manager.Controls
             if (file != null && imageCropper != null)
             {
                 await imageCropper.LoadImageFromFile(file);
-                ImageFileName = file.DisplayName;
+                ImageFileName = file.Name;
 
             }
         }
@@ -115,7 +116,7 @@ namespace game_archive_manager.Controls
                 return;
             }
             var localFolder = ApplicationData.Current.LocalFolder;
-            var fileName = "Cropped_Image" + FileHelper.GetFileType(ImageFileName);
+            var fileName = savingFileName + FileHelper.GetFileType(ImageFileName);
             var imageFile = await localFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
             SavingPath = imageFile.Path;
             if (imageFile != null)

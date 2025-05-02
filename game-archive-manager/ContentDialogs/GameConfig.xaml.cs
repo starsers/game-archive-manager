@@ -33,10 +33,21 @@ namespace game_archive_manager.ContentDialogs
     {
         public ObservableCollection<MatchRule> MatchRules { get; set; }
         public ObservableCollection<MatchRule> ActiveMatchRules { get; set; }
-
+        public string GameID { get; set; }=  "";
+        public string GameName { get; set; }= "";
+        public string GameDescription { get; set; }= "";
         public ICommand AddRuleCommand { get; }
         public ICommand RemoveRuleCommand { get; }
         public ObservableCollection<RuleNameAndRule> GetMatchRuleNames { get; }
+        public string UploadImagePath
+        {
+            get => ImageUploader.SavingPath;
+        }
+        public string ImageFileName
+        {
+            set => ImageUploader.savingFileName = value;
+            get => ImageUploader.savingFileName;
+        }
         public GameConfig()
         {
             this.InitializeComponent();
@@ -64,6 +75,66 @@ namespace game_archive_manager.ContentDialogs
             });
 
             // 设置数据上下文
+            this.DataContext = this;
+        }
+
+        // 下面两种构造函数是为了接入数据库准备的，需要一定的更改
+        public GameConfig(string gameID)
+        {
+            this.InitializeComponent();
+            GameID = gameID;
+            ImageFileName = gameID;
+            // 初始化规则集合
+            MatchRules = new ObservableCollection<MatchRule>
+                {
+                    new MatchRule { RuleName = "规则一" },
+                    new MatchRule { RuleName = "规则二" }
+                };
+            ActiveMatchRules = new ObservableCollection<MatchRule>
+            {
+                new MatchRule()
+            };
+            GetMatchRuleNames = MatchRuleNames();
+            RefreshOtherMatchRuleNames();
+            // 初始化命令
+            AddRuleCommand = new RelayCommand(AddRule);
+            //RemoveRuleCommand = new RelayCommand(param => RemoveRule(param as MatchRule));
+            RemoveRuleCommand = new RelayCommand(param =>
+            {
+                if (param is MatchRule rule)
+                {
+                    RemoveRule(rule);
+                }
+            });
+            // 设置数据上下文
+            this.DataContext = this;
+        }
+        public GameConfig(int gameID)
+        {
+            GameID = gameID.ToString();
+            this.InitializeComponent();
+            ImageFileName = GameID;
+            // 初始化规则集合
+            MatchRules = new ObservableCollection<MatchRule>
+                {
+                    new MatchRule { RuleName = "规则一" },
+                    new MatchRule { RuleName = "规则二" }
+                };
+            ActiveMatchRules = new ObservableCollection<MatchRule>
+            {
+                new MatchRule()
+            };
+            GetMatchRuleNames = MatchRuleNames();
+            RefreshOtherMatchRuleNames();
+            // 初始化命令
+            AddRuleCommand = new RelayCommand(AddRule);
+            RemoveRuleCommand = new RelayCommand(param =>
+            {
+                if (param is MatchRule rule)
+                {
+                    RemoveRule(rule);
+                }
+            });
             this.DataContext = this;
         }
 

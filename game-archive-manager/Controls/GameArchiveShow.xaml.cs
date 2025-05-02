@@ -87,11 +87,11 @@ namespace game_archive_manager.Controls
 
         private GameInfo gameInfo = new GameInfo();
         public GameInfo GameInfo { get => gameInfo; set => gameInfo = value; }
-        private object _selectArchive;
+        private object? _selectArchive;
 
         public object SelectArchive
         {
-            get => _selectArchive;
+            get => _selectArchive ?? new object(); // 确保返回值不为 null  
             set
             {
                 _selectArchive = value;
@@ -186,6 +186,18 @@ namespace game_archive_manager.Controls
                     Debug.WriteLine(
                         $"RuleName: {item.RuleName}, RuleId: {item.RuleId} "
                     );
+                }
+                if (a.UploadImagePath != null&& a.UploadImagePath  != "")
+                {
+                    ImageData = new ImageData(a.UploadImagePath, a.ImageFileName);
+                }
+                if(a.GameName != "")
+                {
+                    GameInfo.GameName = a.GameName;
+                }
+                if(a.GameDescription != "")
+                {
+                    GameInfo.GameDescription = a.GameDescription;
                 }
                 OnPropertyChanged(nameof(GameInfo));
 

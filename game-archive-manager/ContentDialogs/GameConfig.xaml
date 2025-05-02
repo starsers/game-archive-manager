@@ -16,9 +16,13 @@
 
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="游戏名称：" x:Name="GameNameTextBlock" Margin="8,0,0,0" VerticalAlignment="Center" LineHeight="20" />
-            <TextBox PlaceholderText="在此输入..." Width="300" />
+            <TextBox PlaceholderText="在此输入..." Width="300" Text="{Binding GameName,Mode=TwoWay}"/>
         </StackPanel>
-        <controls:ImageUploader />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="游戏描述：" x:Name="GameDescriptionTextBlock" Margin="8,0,0,0" VerticalAlignment="Center" LineHeight="20" />
+            <TextBox PlaceholderText="在此输入..." Width="300" Text="{Binding GameDescription,Mode=TwoWay}"/>
+        </StackPanel>
+        <controls:ImageUploader x:Name="ImageUploader"/>
         <!--<StackPanel Orientation="Horizontal">
             <TextBlock Text="匹配规则：" Margin="8,0,0,0" VerticalAlignment="Center" LineHeight="20" />
             <ComboBox Width="300" PlaceholderText="请选择" ItemsSource="{Binding GetMatchRuleNames}"/>
@@ -44,8 +48,6 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <Button Content="添加规则" Command="{Binding AddRuleCommand}" Margin="0,8,0,0" />
-
-        <CheckBox Content="Upload your content to the cloud."/>
     </StackPanel>
 
 </Page>

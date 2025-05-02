@@ -130,6 +130,7 @@ namespace game_archive_manager
         private void AddGame_Button_Click(object sender, RoutedEventArgs e)
         {
             // ÃÌº””Œœ∑
+            GamesContentShow.Items.Add(new GameInfo());
         }
     }
 }

@@ -37,7 +37,7 @@
 
                 <!-- 图片名称 -->
                 <TextBlock Grid.Column="0"
-                           Text="{Binding ImageData.Name}"
+                           Text="{Binding GameInfo.GameName}"
                            VerticalAlignment="Center"
                            TextTrimming="CharacterEllipsis"
                            FontSize="14"/>
