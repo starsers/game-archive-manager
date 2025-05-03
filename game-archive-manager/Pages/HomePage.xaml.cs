@@ -40,8 +40,8 @@ namespace game_archive_manager
 
         private List<string> _gameNames
         {
-            get => GamesContentShow.Items.OfType<ImageData>()
-                .Select(item => item.Name)
+            get => GamesContentShow.Items.OfType<GameInfo>()
+                .Select(item => item.GameName)
                 .ToList();
         }
 

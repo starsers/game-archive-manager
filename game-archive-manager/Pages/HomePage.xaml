@@ -22,7 +22,7 @@
                    QuerySubmitted="Search_Control_QuerySubmitted"
                    SuggestionChosen="Search_Control_SuggestionChosen"
                    Margin="10"/>
-               <Button x:Name="loginButton" Content="Open Sign In Dialog" Click="ShowSignInDialogButton_Click" Margin="10"></Button>
+               <Button x:Name="loginButton" Content="Login out" Click="ShowSignInDialogButton_Click" Margin="10"></Button>
                <Button Content="Settings"  Click="NavigateToSettingsPage" Margin="10" />
            </StackPanel>
        </RelativePanel>
