@@ -22,9 +22,13 @@
         <Image Grid.Row="0"
                Source="{Binding ImageData.ImageSource}"
                Stretch="Uniform"
-               Margin="5"/>
+               Margin="5">
+            <ToolTipService.ToolTip>
+                <ToolTip Content="{Binding GameInfo.GameDescription}"/>
+            </ToolTipService.ToolTip>
+        </Image>
 
-        <!-- 底部信息区域 -->
+            <!-- 底部信息区域 -->
         <Border Grid.Row="1" 
                 Background="{StaticResource SystemControlBackgroundChromeMediumLowBrush}"
                 Padding="5">
