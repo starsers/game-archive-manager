@@ -43,7 +43,11 @@ namespace game_archive_manager.Controls
 
         // 当前索引
         private int _currentIndex = 0;
-
+        public void setIndex(int index)
+        {
+            _currentIndex = index;
+            UpdateComponents();
+        }
         // 绑定属性
         public GameInfo? Component1 { get; set; }
         public GameInfo? Component2 { get; set; }

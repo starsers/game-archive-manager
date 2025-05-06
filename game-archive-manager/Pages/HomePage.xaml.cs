@@ -98,6 +98,12 @@ namespace game_archive_manager
             System.Diagnostics.Debug.WriteLine($"Query submitted: {queryText}");
 
             //这里到时候加入定位的语句
+            int index = -1;
+            index = _gameNames.IndexOf(queryText);
+            if (index >= 0)
+            {
+                GamesContentShow.setIndex(index);
+            }
         }
 
 
