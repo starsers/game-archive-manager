@@ -14,5 +14,12 @@ namespace game_archive_manager.Helper
         {
             get => WindowNative.GetWindowHandle(target: ((App)Application.Current).GetWindow());
         }
+        private static void addYinYong()
+        {
+            FileHelper.OpenEncryptedFile("a","a");
+            FileHelper.SaveEncryptedFile("a", "a", "a");
+        }
+
     }
+
 }

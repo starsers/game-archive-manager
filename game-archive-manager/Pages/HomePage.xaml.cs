@@ -115,6 +115,7 @@ namespace game_archive_manager
 
         private async void ShowSignInDialogButton_Click(object sender, RoutedEventArgs e)
         {
+            Frame.Navigate(typeof(LoginPage));
             SignInContentDialog signInDialog = new SignInContentDialog();
             signInDialog.XamlRoot = this.Content.XamlRoot;
             await signInDialog.ShowAsync();

@@ -42,7 +42,7 @@ namespace game_archive_manager
 
             MainFrame = new Frame(); // Initialize MainFrame
             this.Content = MainFrame; // Set MainFrame as the content of the window
-            MainFrame.Navigate(typeof(HomePage));
+            MainFrame.Navigate(typeof(LoginPage));
         }
 
       
